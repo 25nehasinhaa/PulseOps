@@ -1,0 +1,46 @@
+{
+  "correlations": [
+    {
+      "correlation_id": "CORR-001",
+      "deployment_event": "EVT-001",
+      "affected_service": "checkout-service",
+      "incident_type": "deployment impact",
+      "severity": "CRITICAL",
+      "confidence": 94,
+      "related_event_ids": [
+        "EVT-002",
+        "EVT-003"
+      ],
+      "summary": "EVT-001 preceded 2 instability signals for checkout-service."
+    },
+    {
+      "correlation_id": "CORR-004",
+      "deployment_event": "EVT-004",
+      "affected_service": "user-auth-service",
+      "incident_type": "deployment impact",
+      "severity": "HIGH",
+      "confidence": 94,
+      "related_event_ids": [
+        "EVT-005",
+        "EVT-006"
+      ],
+      "summary": "EVT-004 preceded 2 instability signals for user-auth-service."
+    }
+  ],
+  "ai_insights": [
+    {
+      "priority": "HIGH",
+      "service": "checkout-service",
+      "insight": "Recent deployment activity may have contributed to instability.",
+      "recommended_action": "Review deployment logs, validate rollback readiness, and monitor error rates for ten minutes.",
+      "correlation_id": "CORR-001"
+    },
+    {
+      "priority": "HIGH",
+      "service": "user-auth-service",
+      "insight": "Recent deployment activity may have contributed to instability.",
+      "recommended_action": "Review deployment logs, validate rollback readiness, and monitor error rates for ten minutes.",
+      "correlation_id": "CORR-004"
+    }
+  ]
+}

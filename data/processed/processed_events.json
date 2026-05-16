@@ -1,0 +1,142 @@
+[
+  {
+    "event_id": "EVT-001",
+    "source": "github",
+    "timestamp": "2026-05-16T11:19:44+00:00",
+    "event_type": "deployment",
+    "affected_service": "checkout-service",
+    "status": "SUCCESS",
+    "severity": "LOW",
+    "description": "Deployment pushed to production",
+    "actor": "release-bot",
+    "metadata": {
+      "repo": "checkout",
+      "environment": "production"
+    },
+    "is_valid": true
+  },
+  {
+    "event_id": "EVT-002",
+    "source": "sentry",
+    "timestamp": "2026-05-16T11:27:44+00:00",
+    "event_type": "application_error",
+    "affected_service": "checkout-service",
+    "status": "CRITICAL",
+    "severity": "LOW",
+    "description": "Error rate spike detected",
+    "actor": "sentry-monitor",
+    "metadata": {
+      "service": "checkout",
+      "error_count": 47
+    },
+    "is_valid": true
+  },
+  {
+    "event_id": "EVT-003",
+    "source": "pagerduty",
+    "timestamp": "2026-05-16T11:28:44+00:00",
+    "event_type": "incident",
+    "affected_service": "checkout-service",
+    "status": "OPEN",
+    "severity": "CRITICAL",
+    "description": "Critical incident triggered",
+    "actor": "pagerduty",
+    "metadata": {
+      "service": "checkout"
+    },
+    "is_valid": true
+  },
+  {
+    "event_id": "EVT-004",
+    "source": "github",
+    "timestamp": "2026-05-16T11:02:44+00:00",
+    "event_type": "deployment",
+    "affected_service": "user-auth-service",
+    "status": "SUCCESS",
+    "severity": "LOW",
+    "description": "Auth service deployment completed",
+    "actor": "release-bot",
+    "metadata": {
+      "repo": "user-auth",
+      "environment": "production"
+    },
+    "is_valid": true
+  },
+  {
+    "event_id": "EVT-005",
+    "source": "pagerduty",
+    "timestamp": "2026-05-16T11:10:44+00:00",
+    "event_type": "service_alert",
+    "affected_service": "user-auth-service",
+    "status": "WARNING",
+    "severity": "HIGH",
+    "description": "Application errors detected post-deploy",
+    "actor": "pagerduty",
+    "metadata": {
+      "service": "user-auth"
+    },
+    "is_valid": true
+  },
+  {
+    "event_id": "EVT-006",
+    "source": "sentry",
+    "timestamp": "2026-05-16T11:14:44+00:00",
+    "event_type": "application_error",
+    "affected_service": "user-auth-service",
+    "status": "WARNING",
+    "severity": "LOW",
+    "description": "Authentication timeout spike",
+    "actor": "sentry-monitor",
+    "metadata": {
+      "service": "user-auth",
+      "error_count": 18
+    },
+    "is_valid": true
+  },
+  {
+    "event_id": "EVT-007",
+    "source": "github",
+    "timestamp": "2026-05-16T10:38:44+00:00",
+    "event_type": "deployment",
+    "affected_service": "payment-api",
+    "status": "SUCCESS",
+    "severity": "LOW",
+    "description": "Payment API rollout completed",
+    "actor": "release-bot",
+    "metadata": {
+      "repo": "payment-api",
+      "environment": "production"
+    },
+    "is_valid": true
+  },
+  {
+    "event_id": "EVT-008",
+    "source": "service_alert",
+    "timestamp": "2026-05-16T10:50:44+00:00",
+    "event_type": "latency",
+    "affected_service": "payment-api",
+    "status": "RESOLVED",
+    "severity": "MEDIUM",
+    "description": "P95 latency returned to baseline",
+    "actor": "cloudwatch",
+    "metadata": {
+      "service": "payment-api"
+    },
+    "is_valid": true
+  },
+  {
+    "event_id": "EVT-009",
+    "source": "service_alert",
+    "timestamp": "2026-05-16T11:33:44+00:00",
+    "event_type": "heartbeat",
+    "affected_service": "data-pipeline-service",
+    "status": "SUCCESS",
+    "severity": "LOW",
+    "description": "SQS to Lambda to S3 pipeline healthy",
+    "actor": "pipeline-health",
+    "metadata": {
+      "service": "data-pipeline"
+    },
+    "is_valid": true
+  }
+]
