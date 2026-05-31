@@ -12,7 +12,7 @@ Built for the WeMakeDevs Coral Enterprise Agent Hackathon.
 2. Dashboard: https://frontend-gold-gamma-85.vercel.app/dashboard
 3. Backend API: https://api-production-4e7b.up.railway.app
 4. API health: https://api-production-4e7b.up.railway.app/health
-5. GitHub repo: https://github.com/25nehasinhaa/PulseOps
+5. GitHub repo: https://github.com/25nehasinhaa/CoralOps
 
 ## Why I Built It
 

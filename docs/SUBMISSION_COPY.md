@@ -27,7 +27,7 @@ The product includes incident selection, Coral SQL visualization, streamed local
 
 ## URLs
 
-1. GitHub: https://github.com/25nehasinhaa/PulseOps
+1. GitHub: https://github.com/25nehasinhaa/CoralOps
 2. Live app: https://frontend-gold-gamma-85.vercel.app
 3. Backend API: https://api-production-4e7b.up.railway.app
 4. YouTube demo: add after recording
