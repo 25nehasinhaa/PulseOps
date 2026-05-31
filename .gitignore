@@ -3,7 +3,13 @@ __pycache__/
 .venv/
 venv/
 .env
+backend/.env
 .DS_Store
 *.code-workspace
 .streamlit/secrets.toml
 data/raw/*.json
+frontend/.next/
+frontend/node_modules/
+frontend/.env.local
+frontend/out/
+frontend/*.log
