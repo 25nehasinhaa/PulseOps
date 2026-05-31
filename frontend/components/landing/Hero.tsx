@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, DatabaseZap } from "lucide-react";
+import { API_URL } from "@/lib/api";
 
 export function Hero() {
   return (
@@ -8,7 +9,7 @@ export function Hero() {
         <div className="brand-mark">CoralOps <span className="brand-line" /></div>
         <div className="landing-links">
           <Link href="/dashboard">Dashboard</Link>
-          <a href="http://127.0.0.1:8010/docs">API</a>
+          <a href={`${API_URL}/docs`}>API</a>
           <a href="https://www.wemakedevs.org/hackathons/coral">Hackathon</a>
           <a href="https://withcoral.com">Coral</a>
         </div>
@@ -25,7 +26,7 @@ export function Hero() {
             <Link className="primary-link" href="/dashboard">
               Open Dashboard <ArrowRight size={18} />
             </Link>
-            <a className="secondary-link" href="http://127.0.0.1:8010/docs">
+            <a className="secondary-link" href={`${API_URL}/docs`}>
               API Docs
             </a>
           </div>

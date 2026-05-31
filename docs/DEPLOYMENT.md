@@ -36,7 +36,7 @@ frontend
 Environment variables:
 
 ```text
-NEXT_PUBLIC_API_URL=https://your-railway-backend.example
+NEXT_PUBLIC_API_URL=https://api-production-4e7b.up.railway.app
 NEXT_PUBLIC_DEMO_MODE=true
 ```
 

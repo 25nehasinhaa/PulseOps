@@ -18,13 +18,19 @@ app = FastAPI(
     version="0.1.0",
 )
 
+frontend_origins = {
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "https://frontend-gold-gamma-85.vercel.app",
+}
+
+extra_frontend_origin = os.getenv("FRONTEND_ORIGIN")
+if extra_frontend_origin:
+    frontend_origins.add(extra_frontend_origin.rstrip("/"))
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-        "https://coralops.vercel.app",
-    ],
+    allow_origins=sorted(frontend_origins),
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

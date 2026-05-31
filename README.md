@@ -1,105 +1,88 @@
-# PulseOps / CoralOps
+# CoralOps
 
-PulseOps started as an AI-powered operational intelligence dashboard that simulates how engineering teams monitor production systems, detect incidents, correlate telemetry, and generate operational recommendations.
+CoralOps is an incident command room for teams that need answers before the trail goes cold.
 
-The hackathon direction is **CoralOps**: an AI SRE agent that uses Coral SQL to join GitHub pull requests, Sentry errors, and Slack incident messages, then streams an SRE-style diagnosis and generates incident postmortems.
+It takes the messy part of outage response, where someone is jumping between GitHub, Sentry, Slack, and a half written incident doc, and turns it into one calm workflow. Pick an incident. Run the Coral SQL diagnosis. Watch the evidence line up. Generate the postmortem while the context is still fresh.
 
-Current MVP flow:
+Built for the WeMakeDevs Coral Enterprise Agent Hackathon.
 
-1. Select an incident.
-2. Run a Coral SQL-backed diagnosis.
-3. Stream the AI SRE analysis.
-4. Inspect the deployment-to-incident evidence timeline.
-5. Generate a markdown postmortem.
-6. Download the postmortem file.
+## Live Links
 
-## Architecture
+1. Live app: https://frontend-gold-gamma-85.vercel.app
+2. Dashboard: https://frontend-gold-gamma-85.vercel.app/dashboard
+3. Backend API: https://api-production-4e7b.up.railway.app
+4. API health: https://api-production-4e7b.up.railway.app/health
+5. GitHub repo: https://github.com/25nehasinhaa/PulseOps
 
-The project currently has two working surfaces:
+## Why I Built It
 
-- `ingestion/mock_events.py` generates mock GitHub, PagerDuty, Sentry, and service alert telemetry.
-- `processor/normaliser.py` converts source-specific payloads into a canonical event schema.
-- `processor/validate_event.py` validates required fields.
-- `analytics/correlation_engine.py` detects deployment-to-incident relationships and generates AI-style recommendations.
-- `analytics/quality_checks.py` reports validation and duplicate metrics.
-- `dashboard/app.py` runs the Streamlit dashboard and persists JSON outputs.
-- `backend/main.py` exposes the new FastAPI API for CoralOps.
-- `backend/services/coral_service.py` runs Coral SQL when configured and falls back to realistic demo data.
-- `backend/services/local_sre_service.py` streams free local diagnosis and postmortem text without paid AI APIs.
-- `frontend/app/page.tsx` runs the Next.js CoralOps landing page.
-- `frontend/app/dashboard/page.tsx` runs the interactive AI SRE dashboard against the FastAPI API.
+Incident response is rarely blocked by a lack of data. It is blocked by scattered data.
 
-## Folder Structure
+The deploy is in GitHub. The error spike is in Sentry. The first human signal is in Slack. The report is in a blank document. CoralOps uses Coral shaped SQL to bring those signals into one investigation flow, then turns the joined evidence into a practical SRE diagnosis and a clean postmortem.
+
+The goal is simple: less tab switching, fewer guesses, better incident memory.
+
+## What Judges Should Try
+
+1. Open the dashboard.
+2. Select the active Sentry incident.
+3. Click Diagnose.
+4. Watch CoralOps stream the suspected root cause, blast radius, and fix path.
+5. Review the Coral SQL and evidence timeline.
+6. Click Postmortem.
+7. Download the generated incident report.
+8. Open the readiness panel to see the hackathon checks.
+
+## What Makes It Coral Native
+
+CoralOps treats Coral SQL as the investigation layer, not as a decorative add on.
+
+The core query joins GitHub pull requests, Sentry issues, and Slack messages into one evidence set. The diagnosis, timeline, and postmortem all come from that joined result. A PagerDuty source draft is included to show how the project can move from demo data to a deeper Coral source path.
+
+## Product Highlights
+
+1. Incident queue with severity, event count, deployment context, and current status.
+2. Streamed SRE diagnosis with root cause, impact, confidence, and next actions.
+3. Coral SQL viewer so the evidence path is visible to judges.
+4. Evidence timeline that connects deploys, error spikes, Slack context, and response status.
+5. One click postmortem generation with download support.
+6. Readiness panel mapped to the hackathon submission needs.
+7. Free mode with no paid AI API requirement.
+
+## Tech Stack
+
+1. Next.js and TypeScript for the frontend.
+2. FastAPI for the backend.
+3. Server sent events for streamed diagnosis and report generation.
+4. Coral SQL patterns for operational joins.
+5. Local SRE engine for free and reliable judging demos.
+6. Railway for the API deployment.
+7. Vercel for the frontend deployment.
+
+## Project Map
 
 ```text
-PulseOps/
-|-- analytics/
-|-- backend/
-|   |-- main.py
-|   |-- models/
-|   |-- queries/
-|   |-- routers/
-|   `-- services/
-|-- coral/
-|   `-- sources/
-|-- dashboard/
-|-- data/
-|-- frontend/
-|   |-- app/
-|   |-- components/
-|   |-- hooks/
-|   `-- lib/
-|-- ingestion/
-|-- processor/
-|-- requirements.txt
-|-- README.md
-`-- .gitignore
+analytics        Original PulseOps correlation logic
+backend          FastAPI API for incidents, diagnosis, queries, reports, readiness
+coral            Coral source draft and SQL direction
+dashboard        Earlier Streamlit prototype
+data             Demo operational events
+docs             Demo script, submission copy, free mode notes, deployment guide
+frontend         Next.js CoralOps experience
+ingestion        Mock operational event generation
+processor        Event normalisation and validation
 ```
 
-## Install
+## Run Locally
+
+Backend:
 
 ```bash
 pip install -r requirements.txt
+uvicorn backend.main:app --reload --port 8010
 ```
 
-## Run Streamlit Dashboard
-
-```bash
-streamlit run dashboard/app.py
-```
-
-The app writes the generated datasets to:
-
-- `data/processed/processed_events.json`
-- `data/processed/correlation_insights.json`
-
-## Run CoralOps API
-
-```bash
-uvicorn backend.main:app --reload --port 8000
-```
-
-Useful endpoints:
-
-- `GET /health`
-- `GET /incidents`
-- `POST /diagnose`
-- `POST /query`
-- `POST /postmortem`
-- `GET /readiness`
-
-Copy `backend/.env.example` to `backend/.env` when you are ready to use real credentials:
-
-```text
-DEMO_MODE=true
-CORAL_AVAILABLE=false
-SLACK_CHANNEL=#incidents
-FREE_SUBMISSION_MODE=true
-```
-
-Keep `DEMO_MODE=true` for reliable hackathon demos before Coral sources are connected.
-
-## Run CoralOps Frontend
+Frontend:
 
 ```bash
 cd frontend
@@ -107,44 +90,38 @@ npm install
 npm run dev
 ```
 
-The frontend defaults to `http://127.0.0.1:8010` for the API. To change it, create `frontend/.env.local`:
+Local URLs:
 
 ```text
-NEXT_PUBLIC_API_URL=http://127.0.0.1:8010
+http://127.0.0.1:8010/health
+http://127.0.0.1:8010/docs
+http://localhost:3000
+http://localhost:3000/dashboard
+```
+
+## Environment
+
+Backend:
+
+```text
+DEMO_MODE=true
+CORAL_AVAILABLE=false
+SLACK_CHANNEL=#incidents
+FREE_SUBMISSION_MODE=true
+FRONTEND_ORIGIN=https://frontend-gold-gamma-85.vercel.app
+```
+
+Frontend:
+
+```text
+NEXT_PUBLIC_API_URL=https://api-production-4e7b.up.railway.app
 NEXT_PUBLIC_DEMO_MODE=true
 ```
 
-Open:
+## Demo Line
 
-- `http://localhost:3000`
-- `http://localhost:3000/dashboard`
+CoralOps is an AI SRE control room that uses Coral SQL patterns to join operational signals and turn an outage trail into a diagnosis, timeline, and postmortem in one workflow.
 
-## Visual Direction
+## Repository Description
 
-The frontend uses the attached Green Velvet palette:
-
-- Green Velvet: `#29281E`
-- Golden Sandlewood: `#857861`
-- Almond Light: `#E7D4BB`
-- Plum Wine: `#48252F`
-- Carbon Powder: `#101211`
-
-The goal is a classy AI operations workspace inspired by a black editorial gallery layout: quiet surfaces, premium serif headings in upright type, subtle borders, and high-contrast operational content.
-
-## Deployment Files
-
-- `backend/Procfile` and `backend/railway.toml` are ready for Railway backend deployment.
-- `frontend/vercel.json` is ready for Vercel frontend deployment.
-- `coral/sources/pagerduty.yaml` is the first custom Coral source spec draft for the PagerDuty bounty path.
-
-## Hackathon Package
-
-- `docs/HACKATHON_CHECKLIST.md` maps the build to the official hackathon rules and judging criteria.
-- `docs/DEMO_SCRIPT.md` provides a 2.5 minute demo script.
-- `docs/DEPLOYMENT.md` provides Railway and Vercel deployment steps.
-- `docs/FREE_SUBMISSION.md` explains how to submit using free tools only.
-- `docs/SUBMISSION_COPY.md` contains paste-ready hackathon submission text.
-
-## Hackathon Demo Hook
-
-"I built PulseOps: a DevOps dashboard with Python-generated GitHub, PagerDuty, and Sentry data. Then I found Coral. CoralOps replaces the mocked correlation layer with Coral SQL joins across operational sources, then uses a free local SRE engine to diagnose root cause and generate a postmortem."
+CoralOps turns GitHub, Sentry, and Slack incident signals into a Coral SQL powered SRE diagnosis, evidence timeline, and postmortem workflow.
